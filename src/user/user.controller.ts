@@ -12,7 +12,7 @@ export class UserController {
     try {
       if (name && email && password) {
         const response = await this.userServise.createUser({
-          username: name,
+          name,
           email,
           password,
         });

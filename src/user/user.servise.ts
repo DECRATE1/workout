@@ -5,22 +5,25 @@ import { UserInterface } from 'src/interfaces/userInterface';
 export class UserServise {
   constructor(private prisma: PrismaServise) {}
 
-  async createUser({
-    username,
-    email,
-    password,
-  }: {
-    username: string;
-    email: string;
-    password: string;
-  }) {
-    return await this.prisma.user.create({
-      data: {
-        name: username,
-        email,
-        password,
-      },
-    });
+  async createUser({ name, email, password }: UserInterface) {
+    try {
+      if (name && email && password) {
+        const response = await this.prisma.user.create({
+          data: { name, email, password },
+        });
+        return response;
+      }
+    } catch (err) {
+      console.log(Error((err as Error).message));
+    }
+    if (name && email && password)
+      return await this.prisma.user.create({
+        data: {
+          name: name,
+          email: email,
+          password: password,
+        },
+      });
   }
 
   async findUser({ email }: UserInterface) {

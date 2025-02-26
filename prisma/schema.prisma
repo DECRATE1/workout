@@ -13,11 +13,31 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User{
-  id Int @default(autoincrement()) @id
-  email String @unique
-  name String @unique
-  password String @unique
+model User {
+  id       Int      @id @default(autoincrement())
+  email    String   @unique
+  name     String   @unique
+  password String
+  WorkOut  WorkOut?
 
   @@map("users")
+}
+
+model Exercise {
+  id          Int     @id @default(autoincrement())
+  title       String
+  description String
+  linkToVideo String?
+
+  @@map("exercises")
+}
+
+model WorkOut {
+  id          Int    @id @default(autoincrement())
+  title       String
+  description String
+  author      User   @relation(fields: [authorId], references: [id])
+  authorId    Int    @unique
+
+  @@map("workouts")
 }

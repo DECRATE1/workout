@@ -28,7 +28,7 @@ model Exercise {
   title       String
   description String
   linkToVideo String?
-
+  workouts WorkOutExercise[]
   @@map("exercises")
 }
 
@@ -38,6 +38,16 @@ model WorkOut {
   description String
   authorId Int
   author User @relation(fields: [authorId], references: [id])
-
+  exercises WorkOutExercise[]
   @@map("workouts")
+}
+
+model WorkOutExercise{
+  id Int @id @default(autoincrement())
+  workoutId Int
+  exerciseId Int
+  exercises Exercise @relation(fields: [exerciseId], references: [id])
+  workouts WorkOut @relation(fields: [workoutId], references: [id])
+
+  @@map("workout_exercise")
 }

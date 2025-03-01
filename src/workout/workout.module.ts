@@ -1,47 +1,11 @@
-import { Injectable } from '@nestjs/common';
-import { PrismaServise } from 'src/prisma/prisma.servise';
+import { Module } from '@nestjs/common';
+import { workoutController } from './workouts.controller';
+import { PrismaModel } from 'src/prisma/prisma.module';
+import { WorkoutServise } from './workouts.servise';
 
-@Injectable()
-export class WorkoutServise {
-  constructor(private prisma: PrismaServise) {}
-
-  async createWorkout({
-    title,
-    description,
-    authorId,
-  }: {
-    title: string;
-    description: string;
-    authorId: number;
-  }) {
-    try {
-      const response = await this.prisma.workOut.create({
-        data: { title, description, authorId },
-      });
-      return response;
-    } catch (err) {
-      console.error(Error((err as Error).message));
-    }
-  }
-
-  async deleteWorkout({ id }: { id: number }) {
-    try {
-      const response = await this.prisma.workOut.delete({ where: { id } });
-      return response;
-    } catch (err) {
-      console.error(Error((err as Error).message));
-    }
-  }
-
-  async changeWorkoutTitle({ id, title }: { id: number; title: string }) {
-    try {
-      const response = await this.prisma.workOut.update({
-        where: { id },
-        data: { title },
-      });
-      return response;
-    } catch (err) {
-      console.error(Error((err as Error).message));
-    }
-  }
-}
+@Module({
+  imports: [PrismaModel],
+  controllers: [workoutController],
+  providers: [WorkoutServise],
+})
+export class WorkoutModule {}

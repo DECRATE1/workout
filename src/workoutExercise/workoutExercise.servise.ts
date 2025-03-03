@@ -12,10 +12,12 @@ export class WorkoutExerciseServise {
     exerciseId: number;
   }) {
     try {
-      const response = await this.prisma.workOutExercise.create({
-        data: { workoutId, exerciseId },
-      });
-      return response;
+      {
+        const response = await this.prisma.workOutExercise.create({
+          data: { workoutid: workoutId, exerciseid: exerciseId },
+        });
+        return response;
+      }
     } catch (err) {
       throw new Error((err as Error).message);
     }

@@ -4,6 +4,7 @@ import {
   HttpCode,
   NotAcceptableException,
   Param,
+  Patch,
   Post,
 } from '@nestjs/common';
 import { WorkoutServise } from './workouts.servise';
@@ -12,6 +13,7 @@ import { WorkoutInterface } from 'src/interfaces/workoutInterface';
 @Controller('workout')
 export class workoutController {
   constructor(private workoutServise: WorkoutServise) {}
+
   @HttpCode(201)
   @Post('create')
   async createWorkout(@Body() body: WorkoutInterface) {
@@ -30,7 +32,7 @@ export class workoutController {
   }
 
   @HttpCode(201)
-  @Post('update/:id')
+  @Patch('update/:id')
   async updateWorkout(@Body() body: WorkoutInterface, @Param('id') id: number) {
     const { title, description } = body;
     const workoutId = +id;

@@ -32,4 +32,26 @@ export class WorkoutExerciseServise {
       throw new Error((err as Error).message);
     }
   }
+
+  async getWorkOutExercise({ id }: { id: number }) {
+    const userId = +id;
+    try {
+      await this.prisma.workOutExercise.findMany({
+        where: {
+          workouts: {
+            authorId: userId,
+          },
+        },
+        include: {
+          workouts: {
+            select: {
+              title: true,
+            },
+          },
+        },
+      });
+    } catch (err) {
+      throw new Error((err as Error).message);
+    }
+  }
 }

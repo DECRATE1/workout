@@ -34,11 +34,10 @@ export class WorkoutExerciseServise {
   }
 
   async getWorkoutExerciseById({ id }: { id: number }) {
-    const workoutid = +id;
     try {
-      return await this.prisma.workOutExercise.findFirst({
+      return await this.prisma.workOutExercise.findMany({
         where: {
-          workoutid,
+          workoutid: id,
         },
         include: {
           exercises: {

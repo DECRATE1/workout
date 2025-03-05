@@ -1,8 +1,10 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   NotAcceptableException,
+  Param,
   Post,
 } from '@nestjs/common';
 import { WorkoutExerciseInterface } from 'src/interfaces/workoutExerciseInterface';
@@ -21,6 +23,23 @@ export class WorkoutExerciseController {
           await this.workoutExerciseServise.createWorkoutExercise({
             workoutId,
             exerciseId,
+          });
+        return response;
+      }
+    } catch (err) {
+      throw new NotAcceptableException(err);
+    }
+  }
+
+  @HttpCode(201)
+  @Get('getWorkoutExerciseById/:id')
+  async getWorkoutExerciseById(@Param('id') id: number) {
+    const workoutId = +id;
+    try {
+      if (workoutId) {
+        const response =
+          await this.workoutExerciseServise.getWorkoutExerciseById({
+            id: workoutId,
           });
         return response;
       }

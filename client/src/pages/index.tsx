@@ -1,35 +1,23 @@
-import AuthField from "@/components/AuthField";
-import { ChangeEvent, FormEvent, MouseEvent, useState } from "react";
-import { useFormState } from "react-dom";
+import { ADDRGETNETWORKPARAMS } from "dns";
+import { METHODS } from "http";
+import { ChangeEvent, FormEvent, FormEventHandler, useState } from "react";
 
 export default function Auth() {
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [otherPassword, setOtherPassword] = useState<string>("");
-  const handleUsername = (e: ChangeEvent<HTMLInputElement>): void => {
-    setUsername(e.target.value);
-  };
 
-  const handleEmail = (e: ChangeEvent<HTMLInputElement>): void => {
-    setEmail(e.target.value);
-  };
-
-  const handlePassword = (e: ChangeEvent<HTMLInputElement>): void => {
-    setPassword(e.target.value);
-  };
-
-  const handleOtherPassword = (e: ChangeEvent<HTMLInputElement>): void => {
-    setOtherPassword(e.target.value);
-  };
-
-  const submitAuth = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const submitAuth = async (formData: FormData) => {
     if (password === otherPassword) {
-      console.log("hello world");
-      return;
+      const response = await fetch("http://localhost:3002/api/auth", {
+        method: "POST",
+        body: JSON.stringify(Object.fromEntries(formData)),
+      });
+      if (response.ok) {
+        return;
+      }
     }
-    console.log("password is not valid");
     return;
   };
 
@@ -40,31 +28,38 @@ export default function Auth() {
           РЕГИСТРАЦИЯ
         </span>
         <form
-          className="gap-[42px] flex flex-col items-center group:text-black [&>input]:uppercase"
-          onSubmit={(e) => submitAuth(e)}
+          className="gap-[42px] flex flex-col items-center [&>input]:focus:normal-case"
+          action={submitAuth}
         >
           <input
-            placeholder="Email"
-            onChange={(e: ChangeEvent<HTMLInputElement>) => handleEmail(e)}
+            placeholder="EMAIL"
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setEmail(e.target.value)
+            }
             type="email"
+            name="email"
             className="bg-black font-bold w-[571px] h-[78px] rounded-4xl text-white text-[28px] pl-2 outline-0 placeholder-white focus:text-transparent focus:[text-shadow:0px_0px_0px_white] focus:placeholder:opacity-0"
           ></input>
           <input
-            placeholder="username"
-            onChange={(e: ChangeEvent<HTMLInputElement>) => handleUsername(e)}
+            placeholder="USERNAME"
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setUsername(e.target.value)
+            }
             type="text"
+            name="name"
             className="bg-black font-bold w-[571px] h-[78px] rounded-4xl text-white text-[28px] pl-2 outline-0 placeholder-white focus:text-transparent focus:[text-shadow:0px_0px_0px_white] focus:placeholder:opacity-0"
           ></input>
           <input
-            placeholder="Password"
+            placeholder="PASSWORD"
             onChange={(e: ChangeEvent<HTMLInputElement>) =>
               setPassword(e.target.value)
             }
             type="password"
+            name="password"
             className="bg-black w-[571px] font-bold h-[78px] rounded-4xl text-white text-[28px] pl-2 outline-0 placeholder-white focus:text-transparent focus:[text-shadow:0px_0px_0px_white] focus:placeholder:opacity-0"
           ></input>
           <input
-            placeholder="Password Again"
+            placeholder="PASSWORD AGAIN"
             type="password"
             onChange={(e: ChangeEvent<HTMLInputElement>) =>
               setOtherPassword(e.target.value)

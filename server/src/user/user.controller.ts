@@ -15,7 +15,7 @@ export class UserController {
 
   @HttpCode(201)
   @Post('create')
-  @Redirect('http://localhost:3000/signIn', 301)
+  @Redirect('http://localhost:3001/signIn', 301)
   async createUser(@Body() body: UserInterface) {
     const { name, email, password } = body;
     const userIsExist = await this.userServise.findUser({ email });

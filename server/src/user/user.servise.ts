@@ -8,22 +8,13 @@ export class UserServise {
   async createUser({ name, email, password }: UserInterface) {
     try {
       if (name && email && password) {
-        const response = await this.prisma.user.create({
+        return await this.prisma.user.create({
           data: { name, email, password },
         });
-        return response;
       }
     } catch (err) {
-      console.log(Error((err as Error).message));
+      console.error(err);
     }
-    if (name && email && password)
-      return await this.prisma.user.create({
-        data: {
-          name: name,
-          email: email,
-          password: password,
-        },
-      });
   }
 
   async findUser({ email }: UserInterface) {

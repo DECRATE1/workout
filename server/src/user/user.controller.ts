@@ -1,39 +1,58 @@
 import {
+  BadRequestException,
   Body,
+  ConflictException,
   Controller,
-  HttpCode,
+  Get,
   NotAcceptableException,
+  NotFoundException,
+  Param,
   Post,
-  Redirect,
+  UseGuards,
 } from '@nestjs/common';
 import { UserServise } from './user.servise';
 import { UserInterface } from 'src/interfaces/userInterface';
+import * as bcrypt from 'bcrypt';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('user')
 export class UserController {
   constructor(private userServise: UserServise) {}
 
-  @HttpCode(201)
   @Post('create')
-  @Redirect('http://localhost:3001/signIn', 301)
   async createUser(@Body() body: UserInterface) {
     const { name, email, password } = body;
     const userIsExist = await this.userServise.findUser({ email });
     try {
-      if (name && email && password && !userIsExist) {
-        const response = await this.userServise.createUser({
+      if (userIsExist) {
+        return new ConflictException('User already is exist');
+      }
+
+      if (name && email && password) {
+        const hash = await bcrypt.hash(password, 10);
+        return await this.userServise.createUser({
           name,
           email,
-          password,
+          password: hash,
         });
-        if (response) {
-          return response;
-        }
-        return new Error('Error');
       }
-      return new Error('Data is not valid or user alredy exist');
+      return new BadRequestException('Invalid value');
     } catch (err) {
-      throw new NotAcceptableException(err);
+      return new NotAcceptableException(err);
+    }
+  }
+  @UseGuards(AuthGuard)
+  @Get('getUser/:id')
+  async getUser(@Param('id') id: number) {
+    const userId = +id;
+    try {
+      const user = await this.userServise.findUserById({ id: userId });
+      if (user) {
+        return user;
+      }
+      return new NotFoundException('User not found');
+    } catch (err) {
+      return new NotAcceptableException(err);
     }
   }
 }

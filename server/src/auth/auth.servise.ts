@@ -23,12 +23,4 @@ export class AuthServise {
       access_token: await this.jwtServise.signAsync(payload),
     };
   }
-
-  async getUserProfile({ id }: UserInterface) {
-    const user = await this.userServise.findUserById({ id });
-    if (!user) {
-      throw new UnauthorizedException();
-    }
-    return user;
-  }
 }

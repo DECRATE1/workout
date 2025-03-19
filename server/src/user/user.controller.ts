@@ -8,6 +8,7 @@ import {
   NotFoundException,
   Param,
   Post,
+  Redirect,
   UseGuards,
 } from '@nestjs/common';
 import { UserServise } from './user.servise';
@@ -18,7 +19,7 @@ import { AuthGuard } from 'src/auth/auth.guard';
 @Controller('user')
 export class UserController {
   constructor(private userServise: UserServise) {}
-
+  @Redirect('http://localhost:3001/SignIn')
   @Post('create')
   async createUser(@Body() body: UserInterface) {
     const { name, email, password } = body;

@@ -36,8 +36,8 @@ model WorkOut {
   id          Int    @id @default(autoincrement())
   title       String
   description String
-  authorId Int
-  author User @relation(fields: [authorId], references: [id])
+  authorid Int
+  author User @relation(fields: [authorid], references: [id])
   exercises WorkOutExercise[]
   @@map("workouts")
 }

@@ -1,6 +1,5 @@
 import AuthButton from "@/components/AuthButton";
 import ProgressBar from "@/components/Circle";
-import CircleProgress from "@/components/Circle";
 import WorkoutBar from "@/components/WorkoutBar";
 export default function Auth() {
   const weak: { [index: string]: number } = {
@@ -15,8 +14,8 @@ export default function Auth() {
   return (
     <div className="relative flex w-full h-full overflow-hidden p-4 flex-col">
       <div className="w-full bg-inherit flex gap-5 justify-end">
-        <AuthButton href="SignIn" title="Вход"></AuthButton>
-        <AuthButton href="SignUp" title="Регистрация"></AuthButton>
+        <AuthButton href="Auth?auth=in" title="Вход"></AuthButton>
+        <AuthButton href="Auth?auth=reg" title="Регистрация"></AuthButton>
       </div>
       <div className="w-full text-white flex items-center justify-center mt-14">
         {Object.keys(weak).map((e: string) => {

@@ -8,15 +8,15 @@ export class WorkoutServise {
   async createWorkout({
     title,
     description,
-    authorId,
+    authorid,
   }: {
     title: string;
     description: string;
-    authorId: number;
+    authorid: number;
   }) {
     try {
       const response = await this.prisma.workOut.create({
-        data: { title, description, authorId },
+        data: { title, description, authorid },
       });
       return response;
     } catch (err) {

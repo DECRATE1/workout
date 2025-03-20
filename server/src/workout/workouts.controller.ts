@@ -23,7 +23,7 @@ export class workoutController {
         await this.workoutServise.createWorkout({
           title,
           description,
-          authorId,
+          authorid: authorId,
         });
       } catch (err) {
         return new NotAcceptableException(err);

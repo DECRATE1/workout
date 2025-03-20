@@ -87,7 +87,7 @@ export default function SignUp({
           className="bg-black w-[571px] font-bold h-[78px] rounded-4xl text-white text-[28px] pl-2 outline-0 placeholder-white focus:text-transparent focus:[text-shadow:0px_0px_0px_white] focus:placeholder:opacity-0"
         ></input>
         <input
-          placeholder="PASSWORD AGAIN"
+          placeholder="CONFIRM PASSWORD"
           type="password"
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setOtherPassword(e.target.value)

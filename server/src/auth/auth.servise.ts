@@ -15,9 +15,11 @@ export class AuthServise {
     password,
   }: UserInterface): Promise<{ access_token: string }> {
     const user = await this.userServise.findUser({ email });
-    if (user?.password === password) {
+    if (user?.password !== password) {
+      console.log('hello');
       throw new UnauthorizedException();
     }
+
     const payload = { sub: user?.id, email: user?.email };
     return {
       access_token: await this.jwtServise.signAsync(payload),

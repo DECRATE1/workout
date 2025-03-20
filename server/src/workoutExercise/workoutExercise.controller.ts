@@ -14,7 +14,7 @@ import { WorkoutExerciseServise } from './workoutExercise.servise';
 export class WorkoutExerciseController {
   constructor(private workoutExerciseServise: WorkoutExerciseServise) {}
   @HttpCode(201)
-  @Post('crateWorkoutExercise')
+  @Post('createWorkoutExercise')
   async createWorkoutExercise(@Body() body: WorkoutExerciseInterface) {
     const { workoutId, exerciseId } = body;
     try {
@@ -42,6 +42,20 @@ export class WorkoutExerciseController {
             id: workoutId,
           });
         return response;
+      }
+    } catch (err) {
+      throw new NotAcceptableException(err);
+    }
+  }
+
+  @Get('getWorkoutExerciseByUserId/:id')
+  async getWorkoutExerciseByUserId(@Param('id') id: number) {
+    const userId = +id;
+    try {
+      if (userId) {
+        return await this.workoutExerciseServise.getWorkoutExerciseByUserId({
+          id: userId,
+        });
       }
     } catch (err) {
       throw new NotAcceptableException(err);

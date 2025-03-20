@@ -14,22 +14,22 @@ export default function Auth() {
 
   const handleSignInPos = () => {
     setButtonCD(true);
-    setTimeout(() => (onTop === "reg" ? setOnTop("in") : setOnTop("reg")), 600);
+    setTimeout(() => (onTop === "reg" ? setOnTop("in") : setOnTop("reg")), 300);
     setSignInPos("right");
     setTimeout(() => {
       setButtonCD(false);
       setSignInPos("default");
-    }, 900);
+    }, 500);
   };
 
   const handleSignUpPos = () => {
     setButtonCD(true);
-    setTimeout(() => (onTop === "reg" ? setOnTop("in") : setOnTop("reg")), 600);
+    setTimeout(() => (onTop === "reg" ? setOnTop("in") : setOnTop("reg")), 300);
     setSignUpPos("right");
     setTimeout(() => {
       setButtonCD(false);
       setSignUpPos("default");
-    }, 900);
+    }, 500);
   };
 
   useEffect(() => {

@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default async function SignUp(
+export default async function SignIn(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -13,7 +13,8 @@ export default async function SignUp(
       body: JSON.stringify(req.body),
     });
     if (response) {
-      res.status(200).send(response.url);
+      const body = await response.json();
+      res.json({ token: body.access_token });
       return;
     }
     res.status(404).send("Error");

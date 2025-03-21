@@ -37,7 +37,7 @@ export class WorkoutExerciseServise {
     try {
       return await this.prisma.workOutExercise.findMany({
         where: {
-          workoutid: id,
+          id,
         },
         include: {
           exercises: {

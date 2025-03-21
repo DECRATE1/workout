@@ -34,12 +34,12 @@ export class WorkoutExerciseController {
   @HttpCode(201)
   @Get('getWorkoutExerciseById/:id')
   async getWorkoutExerciseById(@Param('id') id: number) {
-    const workoutId = +id;
+    const workoutExerciseId = +id;
     try {
-      if (workoutId) {
+      if (workoutExerciseId) {
         const response =
           await this.workoutExerciseServise.getWorkoutExerciseById({
-            id: workoutId,
+            id: workoutExerciseId,
           });
         return response;
       }

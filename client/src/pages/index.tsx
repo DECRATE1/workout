@@ -28,6 +28,7 @@ export default function Auth() {
         setUserVerified(false);
         return;
       }
+      setUserVerified(false);
       return;
     };
     getUserWorkout();

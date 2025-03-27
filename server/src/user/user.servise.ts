@@ -18,12 +18,7 @@ export class UserServise {
   }
 
   async findUser({ email }: UserInterface) {
-    try {
-      const response = await this.prisma.user.findFirst({ where: { email } });
-      return response;
-    } catch (err) {
-      console.log(Error((err as Error).message));
-    }
+    return await this.prisma.user.findFirst({ where: { email } });
   }
 
   async findUserById({ id }: UserInterface) {

@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   NotAcceptableException,
   Param,
@@ -42,6 +43,15 @@ export class workoutController {
         title,
         description,
       });
+    } catch (err) {
+      return new NotAcceptableException(err);
+    }
+  }
+
+  @Get('getWorkoutsByUserId/:id')
+  async getWorkoutsByUserId(@Param('id') id: number) {
+    try {
+      return await this.workoutServise.getWorkoutByAuthorId({ id });
     } catch (err) {
       return new NotAcceptableException(err);
     }

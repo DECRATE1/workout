@@ -27,11 +27,8 @@ export default function SignUp({
         },
         body: JSON.stringify(Object.fromEntries(formData)),
       });
-      if (response.ok) {
-        if (response.redirected) {
-          router.push(response.url);
-          return;
-        }
+      if (response) {
+        router.push("http://localhost:3001/Auth?auth=in");
         return;
       }
     }
@@ -94,13 +91,13 @@ export default function SignUp({
           }
           className="bg-black w-[571px] font-bold h-[78px] rounded-4xl text-white text-[28px] pl-2 outline-0 placeholder-white focus:text-transparent focus:[text-shadow:0px_0px_0px_white] focus:placeholder:opacity-0"
         ></input>
+        <button
+          type="submit"
+          className="mt-auto mb-10 p-1 bg-black rounded-4xl text-white text-[28px] px-8 font-bold py-2 cursor-pointer"
+        >
+          ПОТВЕРДИТЬ
+        </button>
       </form>
-      <button
-        type="submit"
-        className="mt-auto mb-10 p-1 bg-black rounded-4xl text-white text-[28px] px-8 font-bold py-2 cursor-pointer"
-      >
-        ПОТВЕРДИТЬ
-      </button>
     </div>
   );
 }

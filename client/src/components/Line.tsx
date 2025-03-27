@@ -14,7 +14,7 @@ export default function Line({
     <div
       className="bg-white h-[2.5px] font-black absolute right-[50%] top-[50%] rounded-full"
       style={{
-        left: minusOrPlus ? "40%" : "50%",
+        left: minusOrPlus ? "30%" : "50%",
         width: `${hypotenuse}px`,
         transform: `rotate(${minusOrPlus ? "-" : "+"}${angle}deg)`,
         transformOrigin: "top left",

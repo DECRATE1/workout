@@ -8,7 +8,6 @@ import {
   NotFoundException,
   Param,
   Post,
-  Redirect,
   UseGuards,
 } from '@nestjs/common';
 import { UserServise } from './user.servise';
@@ -19,28 +18,25 @@ import { AuthGuard } from 'src/auth/auth.guard';
 @Controller('user')
 export class UserController {
   constructor(private userServise: UserServise) {}
-  @Redirect('http://localhost:3001/SignIn')
+
   @Post('create')
   async createUser(@Body() body: UserInterface) {
     const { name, email, password } = body;
     const userIsExist = await this.userServise.findUser({ email });
-    try {
-      if (userIsExist) {
-        return new ConflictException('User already is exist');
-      }
 
-      if (name && email && password) {
-        const hash = await bcrypt.hash(password, 10);
-        return await this.userServise.createUser({
-          name,
-          email,
-          password: hash,
-        });
-      }
-      return new BadRequestException('Invalid value');
-    } catch (err) {
-      return new NotAcceptableException(err);
+    if (userIsExist) {
+      throw new ConflictException('User already exist');
     }
+
+    if (name && email && password) {
+      const hash = await bcrypt.hash(password, 10);
+      return await this.userServise.createUser({
+        name,
+        email,
+        password: hash,
+      });
+    }
+    throw new BadRequestException('Invalid value');
   }
   @UseGuards(AuthGuard)
   @Get('getUser/:id')

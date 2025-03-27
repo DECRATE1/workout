@@ -4,7 +4,7 @@ export default function WorkoutBar() {
       <span>adfafdafasd</span>
       <div className="flex gap-6">
         <span>ВТ</span>
-        <span>5/11</span>
+        <span>23/02/03</span>
       </div>
     </div>
   );

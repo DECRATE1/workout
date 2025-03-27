@@ -37,7 +37,8 @@ model WorkOut {
   title       String
   description String
   authorid Int
-  author User @relation(fields: [authorid], references: [id])
+  dateOfCreation DateTime @default(now())
+  author User @relation(fields: [authorid], references: [id], onDelete: Cascade)
   exercises WorkOutExercise[]
   @@map("workouts")
 }
@@ -46,8 +47,8 @@ model WorkOutExercise{
   id Int @id @default(autoincrement())
   workoutid Int
   exerciseid Int
-  exercises Exercise @relation(fields: [exerciseid], references: [id])
-  workouts WorkOut @relation(fields: [workoutid], references: [id])
+  exercises Exercise @relation(fields: [exerciseid], references: [id], onDelete: Cascade)
+  workouts WorkOut @relation(fields: [workoutid], references: [id], onDelete: Cascade)
 
   @@map("workout_exercise")
 }

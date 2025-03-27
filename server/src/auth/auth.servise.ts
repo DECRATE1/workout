@@ -1,8 +1,12 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  NotAcceptableException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserInterface } from 'src/interfaces/userInterface';
 import { UserServise } from 'src/user/user.servise';
-
+import * as bcrypt from 'bcrypt';
 @Injectable()
 export class AuthServise {
   constructor(
@@ -15,8 +19,12 @@ export class AuthServise {
     password,
   }: UserInterface): Promise<{ access_token: string }> {
     const user = await this.userServise.findUser({ email });
-    if (user?.password !== password) {
-      console.log('hello');
+    if (!user) {
+      throw new NotAcceptableException();
+    }
+    const isVerified = await bcrypt.compare(user?.password, password as string);
+
+    if (!isVerified) {
       throw new UnauthorizedException();
     }
 

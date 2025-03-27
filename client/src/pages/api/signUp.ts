@@ -13,7 +13,7 @@ export default async function SignUp(
       body: JSON.stringify(req.body),
     });
     if (response) {
-      res.status(200).send(response.url);
+      res.status(200).send(response);
       return;
     }
     res.status(404).send("Error");

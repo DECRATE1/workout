@@ -16,7 +16,7 @@ export default function SignIn({
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-
+  const [error, setError] = useState<boolean>(false);
   const router = useRouter();
   const submitSignIn = async (formData: FormData) => {
     if (password !== "") {
@@ -27,14 +27,19 @@ export default function SignIn({
         },
         body: JSON.stringify(Object.fromEntries(formData)),
       });
+
       if (response) {
         const body = await response.json();
-        localStorage.setItem("token", body.token);
+        if (body.token) {
+          localStorage.setItem("token", body.token);
+          router.push("http://localhost:3001/");
+        }
+        setError(true);
 
-        router.push("http://localhost:3001/");
         return;
       }
     }
+    console.log("error");
     return;
   };
 
@@ -89,6 +94,11 @@ export default function SignIn({
             ПОТВЕРДИТЬ
           </button>
         </form>
+        {error && (
+          <span className="text-black font-black text-[24px] select-none">
+            НЕВЕРНЫЙ ПАРОЛЬ ИЛИ EMAIL
+          </span>
+        )}
       </div>
       )
     </>

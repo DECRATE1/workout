@@ -22,7 +22,8 @@
     "**/*.ts",
     "**/*.tsx",
     "src/pages/api/workoutExercise/getWorkoutExerciseByUserId",
-    "src/pages/api/workoutExercise"
+    "src/pages/api/workoutExercise",
+    "src/pages/api/workout"
   ],
   "exclude": ["node_modules"]
 }

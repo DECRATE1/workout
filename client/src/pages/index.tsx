@@ -3,6 +3,8 @@ import ProgressBar from "@/components/Circle";
 import WorkoutBar from "@/components/WorkoutBar";
 import { useEffect, useState } from "react";
 import jwt from "jsonwebtoken";
+import LogOutButton from "@/components/LogOut";
+
 export default function Auth() {
   const weak: { [index: string]: number } = {
     ПН: 50,
@@ -13,6 +15,7 @@ export default function Auth() {
     СБ: 99,
     ВС: 0,
   };
+
   const [userVerified, setUserVerified] = useState<boolean>();
 
   useEffect(() => {
@@ -22,7 +25,13 @@ export default function Auth() {
         const userId = jwt.decode(token)?.sub;
         if (userId) {
           setUserVerified(true);
-          await fetch("");
+          const response = await fetch(
+            `http://localhost:3000/api/workoutExercise/getWorkoutExerciseByUserId/${userId}`
+          );
+          if (response.ok) {
+            const body = await response.json();
+            console.log(body);
+          }
           return;
         }
         setUserVerified(false);
@@ -31,8 +40,20 @@ export default function Auth() {
       setUserVerified(false);
       return;
     };
+
     getUserWorkout();
   }, []);
+
+  const handleLogOut = () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      localStorage.removeItem("token");
+      setUserVerified(false);
+      return;
+    }
+    setUserVerified(false);
+  };
+
   return (
     <div className="relative flex w-full h-full overflow-hidden p-4 flex-col">
       {userVerified === undefined ? (
@@ -43,7 +64,7 @@ export default function Auth() {
           <AuthButton href="Auth?auth=reg" title="Регистрация"></AuthButton>
         </div>
       ) : (
-        <div className="text-red-600">Classic</div>
+        <LogOutButton handleLogOut={handleLogOut}></LogOutButton>
       )}
       <div className="w-full text-white flex items-center justify-center mt-14">
         {Object.keys(weak).map((e: string) => {
@@ -64,6 +85,8 @@ export default function Auth() {
       <div className="flex items-center justify-center mt-5">
         <ProgressBar percent={50} w={500} h={500} width={25}></ProgressBar>
       </div>
+
+      <div className="w-full flex my-20 items-center justify-center"></div>
 
       <div className="w-full flex flex-col items-center justify-center mt-24">
         <WorkoutBar></WorkoutBar>

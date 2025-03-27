@@ -28,7 +28,7 @@ export default function ProgressCoordinatePlane() {
   //точка
 
   return (
-    <div className="w-fit h-fit flex scale-140">
+    <div className="w- h-fit flex  scale-x-250 scale-y-120">
       <div className="flex flex-col">
         {dataY
           .sort((a, b) => +b - +a)
@@ -63,7 +63,7 @@ export default function ProgressCoordinatePlane() {
             .sort((a, b) => +b - +a)
             .map((num) => {
               return (
-                <span className="text-white text-[10px] font-bold uppercase flex size-[54px] justify-center">
+                <span className="text-white text-[23px] font-bold uppercase flex size-[54px] justify-center scale-50">
                   {num}
                 </span>
               );

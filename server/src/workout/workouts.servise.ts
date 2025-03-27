@@ -53,4 +53,16 @@ export class WorkoutServise {
       console.error(Error((err as Error).message));
     }
   }
+
+  async getWorkoutByAuthorId({ id }: { id: number }) {
+    const authorId = +id;
+    try {
+      const response = await this.prisma.workOut.findFirst({
+        where: { authorid: authorId },
+      });
+      return response;
+    } catch (err) {
+      console.error(err);
+    }
+  }
 }

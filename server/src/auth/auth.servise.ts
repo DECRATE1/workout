@@ -22,8 +22,7 @@ export class AuthServise {
     if (!user) {
       throw new NotAcceptableException();
     }
-    const isVerified = await bcrypt.compare(user?.password, password as string);
-
+    const isVerified = await bcrypt.compare(password as string, user.password);
     if (!isVerified) {
       throw new UnauthorizedException();
     }

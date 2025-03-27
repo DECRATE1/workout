@@ -13,6 +13,7 @@ export default async function Workout(
           method: "GET",
         }
       );
+      return response;
     } catch (err) {
       console.error(err);
     }

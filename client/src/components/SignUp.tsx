@@ -1,3 +1,4 @@
+import { usePathname } from "next/navigation";
 import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
 
@@ -17,7 +18,7 @@ export default function SignUp({
   const [password, setPassword] = useState<string>("");
   const [otherPassword, setOtherPassword] = useState<string>("");
   const router = useRouter();
-
+  const path = usePathname();
   const submitSignUp = async (formData: FormData) => {
     if (password === otherPassword) {
       const response = await fetch("http://localhost:3001/api/signUp", {
@@ -28,6 +29,8 @@ export default function SignUp({
         body: JSON.stringify(Object.fromEntries(formData)),
       });
       if (response) {
+        console.log(path);
+        handleSignUpPos();
         router.push("http://localhost:3001/Auth?auth=in");
         return;
       }

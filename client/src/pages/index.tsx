@@ -4,6 +4,7 @@ import WorkoutBar from "@/components/WorkoutBar";
 import { useEffect, useState } from "react";
 import jwt from "jsonwebtoken";
 import LogOutButton from "@/components/LogOut";
+import Link from "next/link";
 
 export default function Auth() {
   const weak: { [index: string]: number } = {
@@ -86,7 +87,14 @@ export default function Auth() {
         <ProgressBar percent={50} w={500} h={500} width={25}></ProgressBar>
       </div>
 
-      <div className="w-full flex my-20 items-center justify-center"></div>
+      <div className="w-full flex my-20 items-center justify-center text-[24px] text-white font-black">
+        <Link
+          className="bg-[#FA1059] rounded-4xl p-3 ml-[45%]"
+          href={"/CreateWorkout"}
+        >
+          ДОБАВИТЬ
+        </Link>
+      </div>
 
       <div className="w-full flex flex-col items-center justify-center mt-24">
         <WorkoutBar></WorkoutBar>

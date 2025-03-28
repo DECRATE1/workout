@@ -87,12 +87,13 @@ export default function Auth() {
         <ProgressBar percent={50} w={500} h={500} width={25}></ProgressBar>
       </div>
 
-      <div className="w-full flex my-20 items-center justify-center text-[24px] text-white font-black">
+      <div className="w-full flex my-10 items-center justify-center text-[24px] text-white font-black">
         <Link
-          className="bg-[#FA1059] rounded-4xl p-3 ml-[45%]"
+          className="bg-[#FA1059] rounded-4xl p-3 w-[10rem] h-[3rem] text-[40px] flex items-center justify-center select-none text-center"
+          draggable={false}
           href={"/CreateWorkout"}
         >
-          ДОБАВИТЬ
+          +
         </Link>
       </div>
 

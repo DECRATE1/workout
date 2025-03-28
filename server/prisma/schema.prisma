@@ -47,6 +47,7 @@ model WorkOutExercise{
   id Int @id @default(autoincrement())
   workoutid Int
   exerciseid Int
+  exerciseiscomplete Boolean @default(false)
   exercises Exercise @relation(fields: [exerciseid], references: [id], onDelete: Cascade)
   workouts WorkOut @relation(fields: [workoutid], references: [id], onDelete: Cascade)
 

@@ -18,7 +18,7 @@ export class WorkoutServise {
       const response = await this.prisma.workOut.create({
         data: { title, description, authorid },
       });
-      return response;
+      return { authorid, workoutId: response.id };
     } catch (err) {
       console.error(Error((err as Error).message));
     }

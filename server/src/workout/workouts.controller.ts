@@ -21,10 +21,10 @@ export class workoutController {
     const { title, description, authorId } = body;
     if (title && description && authorId) {
       try {
-        await this.workoutServise.createWorkout({
+        return await this.workoutServise.createWorkout({
           title,
           description,
-          authorid: authorId,
+          authorid: +authorId,
         });
       } catch (err) {
         return new NotAcceptableException(err);

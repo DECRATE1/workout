@@ -2,17 +2,25 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 async function main() {
-  const pushups = await prisma.exercise.upsert({
+  await prisma.exercise.upsert({
     where: { id: 1 },
-    update: {},
-    create: { title: 'Video', description: 'des', linkToVideo: 'text' },
+    update: { title: 'Отжимания' },
+    create: { title: 'Отжимания', description: 'des', linkToVideo: 'text' },
   });
-  const press = await prisma.exercise.upsert({
+  await prisma.exercise.upsert({
     where: { id: 2 },
     update: {},
     create: { title: 'Пресс', description: 'des' },
   });
-  console.log({ pushups, press });
+  await prisma.exercise.upsert({
+    where: { id: 3 },
+    update: {},
+    create: {
+      title: 'Алмазные отжимания',
+      description: 'des',
+      linkToVideo: 'text',
+    },
+  });
 }
 
 main()

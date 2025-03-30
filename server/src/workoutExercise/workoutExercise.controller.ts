@@ -17,6 +17,7 @@ export class WorkoutExerciseController {
   @Post('createWorkoutExercise')
   async createWorkoutExercise(@Body() body: WorkoutExerciseInterface) {
     const { workoutId, exerciseId } = body;
+    console.log(workoutId, exerciseId);
     try {
       if (workoutId && exerciseId) {
         const response =

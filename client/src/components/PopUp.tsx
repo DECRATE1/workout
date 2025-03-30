@@ -19,13 +19,12 @@ export default function ExercisePopUp({
   }[];
   handlePopUp: () => void;
 }) {
-  const [exercisesChoosed, setExerciseChoosed] = useState(new Set<number>());
   return (
     <div className="absolute w-[50%] h-full bg-black flex flex-col overflow-y-scroll overflow-ellipsis">
       <IoCloseSharp
-        className="ml-auto mt-10 cursor-pointer text-end right-0"
-        viewBox="-512 0 512 512"
-        size={145}
+        className="ml-auto mt-10 cursor-pointer text-end right-0 text-white"
+        viewBox="0 0 512 512"
+        size={100}
         onClick={handlePopUp}
       />
       <span className="text-[48px] items-center justify-center w-full flex mt-5 select-none">
@@ -40,20 +39,9 @@ export default function ExercisePopUp({
               text={items.title}
               url={"/push.jpg"}
               exerciseId={items.id}
-              setExerciseChoosed={setExerciseChoosed}
-              exercisesChoosed={exercisesChoosed}
             ></PopUpRow>
           );
         })}
-      </div>
-
-      <div className="w-full h-[10rem] mb-5 flex items-center justify-center text-[32px]">
-        <span
-          className="p-3 bg-[#FA1059] rounded-3xl cursor-pointer"
-          onClick={() => console.log(exercisesChoosed)}
-        >
-          ПОТВЕРДИТЬ
-        </span>
       </div>
     </div>
   );
